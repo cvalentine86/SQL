@@ -1,0 +1,187 @@
+--create a DB for COVID-19.
+
+--Create Patient Table.
+
+CREATE TABLE [Patient]([Pat_ID] VARCHAR(6) PRIMARY KEY NOT NULL, 
+[Pat_LastName] VARCHAR(100) NOT NULL, 
+[Pat_FirstName] VARCHAR(100) NOT NULL, 
+[Gender] CHAR(1) NOT NULL, 
+[DOB] DATE(10) NOT NULL, 
+[Age] INT(3) NOT NULL, 
+[Race] CHAR(10) NOT NULL, 
+[Ethnicity] CHAR(65) NOT NULL, 
+[Pat_Address] VARCHAR(265) NOT NULL, 
+[Pat_Phone] VARCHAR(12) NOT NULL);
+
+--insert values of the patient table.
+
+INSERT INTO Patient 
+(Pat_ID, Pat_LastName, Pat_FirstName, Gender, DOB, Age, Race, Ethnicity, Pat_Address, Pat_Phone) 
+VALUES 
+("000101", "Smith", "Cassie", "F", "1995-03-17", "25", "White", "American", "123 Black Ln, 47130", "502-565-5555");
+
+INSERT INTO Patient 
+(Pat_ID, Pat_LastName, Pat_FirstName, Gender, DOB, Age, Race, Ethnicity, Pat_Address, Pat_Phone) 
+VALUES 
+("000102", "White", "John", "M", "1965-09-10", "54", "White", "German", "555 Green St, 85042", "602-858-7744");
+
+INSERT INTO Patient 
+(Pat_ID, Pat_LastName, Pat_FirstName, Gender, DOB, Age, Race, Ethnicity, Pat_Address, Pat_Phone) 
+VALUES 
+("000103", "Thomas", "Brad", "M", "1973-12-08", "46", "Black", "American", "658 N Cape Rd, 93514", "801-776-5487");
+
+INSERT INTO Patient 
+(Pat_ID, Pat_LastName, Pat_FirstName, Gender, DOB, Age, Race, Ethnicity, Pat_Address, Pat_Phone) 
+VALUES 
+("000104", "King", "Kyle", "M", "1989-03-16", "31", "Asian", "Japanese", "313 Newton Ln, 40207", "502-258-8132");
+
+INSERT INTO Patient 
+(Pat_ID, Pat_LastName, Pat_FirstName, Gender, DOB, Age, Race, Ethnicity, Pat_Address, Pat_Phone) 
+VALUES 
+("000105", "Li", "Samantha", "F", "1949-02-02", "71", "Asian", "Chinese", "222 S Old St, 79004", "760-873-5969");
+
+-- Creat Physician table.
+
+CREATE TABLE [Physician]
+([Phy_ID] VARCHAR(6) PRIMARY KEY NOT NULL, 
+[Phy_LastName] VARCHAR(65) NOT NULL, 
+[Phy_FirstName] VARCHAR(65) NOT NULL, 
+[NPI] INT(10) NOT NULL, 
+[Phy_Address] VARCHAR(265) NOT NULL, 
+[Phy_Phone] VARCHAR(12) NOT NULL);
+
+-- Insert values into Physician Table.
+
+INSERT INTO Physician 
+(Phy_ID, Phy_LastName, Phy_FirstName, NPI, Phy_Address, Phy_Phone) 
+VALUES 
+("A10001", "White, MD", "Daniel", "1122334455", "123 Silver Ln, 47130", "502-298-8855");
+
+INSERT INTO Physician 
+(Phy_ID, Phy_LastName, Phy_FirstName, NPI, Phy_Address, Phy_Phone) 
+VALUES 
+("A10002", "King, MD", "Kenneth", "1225543988", "797 Teal St, 40209", "270-444-6321");
+
+-- Create Patient/Physician Encounter Table.
+
+CREATE TABLE [Encounter]
+([Enc_ID] VARCHAR(8) PRIMARY KEY NOT NULL, 
+[Enc_Date] DATE(10) NOT NULL, 
+[Enc_Time] TIME(8) NOT NULL, 
+[Visit_Reason] VARCHAR(265) NOT NULL, 
+[Pat_ID] VARCHAR(6) NOT NULL REFERENCES 
+[Patient]([PatientID]), 
+[Phy_ID] VARCHAR(6) NOT NULL REFERENCES [Physician]([PhysicianID]));
+
+-- Insert Values into Encounter Table.
+
+INSERT INTO Encounter 
+(Enc_ID, Enc_Date, Enc_Time, Visit_Reason, Pat_ID, Phy_ID) 
+VALUES 
+("E0000001", "2020-05-24", "09:00:00", "COVID-19 Exposure", "100101", "A10001");
+
+INSERT INTO Encounter 
+(Enc_ID, Enc_Date, Enc_Time, Visit_Reason, Pat_ID, Phy_ID) 
+VALUES 
+("E0000044", "2020-06-07", "13:00:00", "COVID-19 Follow-up", "100101", "A10001");
+
+INSERT INTO Encounter 
+(Enc_ID, Enc_Date, Enc_Time, Visit_Reason, Pat_ID, Phy_ID) 
+VALUES 
+("E0000405", "2020-03-24", "07:30:00", "Resp. Infection", "100102", "A10002");
+
+INSERT INTO Encounter 
+(Enc_ID, Enc_Date, Enc_Time, Visit_Reason, Pat_ID, Phy_ID) 
+VALUES 
+("E0000025", "2020-04-10", "08:45:00", "Resp. Infection", "100102", "A10002");
+
+INSERT INTO Encounter
+(Enc_ID, Enc_Date, Enc_Time, Visit_Reason, Pat_ID, Phy_ID) 
+VALUES 
+("E0000325", "2020-06-10", "14:45:00", "COVID-19 Exposure", "100103", "A10001");
+
+INSERT INTO Encounter 
+(Enc_ID, Enc_Date, Enc_Time, Visit_Reason, Pat_ID, Phy_ID) 
+VALUES 
+("E0000685", "2020-06-24", "10:00:00", "COVID-19 Follow-up", "100103", "A10001");
+
+INSERT INTO Encounter 
+(Enc_ID, Enc_Date, Enc_Time, Visit_Reason, Pat_ID, Phy_ID) 
+VALUES 
+("E0000098", "2020-05-14", "12:30:00", "Resp. Infection", "100104", "A10002");
+
+INSERT INTO Encounter 
+(Enc_ID, Enc_Date, Enc_Time, Visit_Reason, Pat_ID, Phy_ID) 
+VALUES 
+("E0000300", "2020-05-30", "08:30:00", "COVID-19 Follow-up", "100104", "A10002");
+
+INSERT INTO Encounter 
+(Enc_ID, Enc_Date, Enc_Time, Visit_Reason, Pat_ID, Phy_ID) 
+VALUES 
+("E0001000", "2020-07-09", "08:30:00", "COVID-19 Exposure", "100105", "A10002");
+
+INSERT INTO Encounter 
+(Enc_ID, Enc_Date, Enc_Time, Visit_Reason, Pat_ID, Phy_ID) 
+VALUES 
+("E0001031", "2020-07-24", "11:30:00", "COVID-19 Follow-up", "100105", "A10001");
+
+-- Create Laboratory Table.
+
+CREATE TABLE [Laboratory]
+([Lab_ID] VARCHAR(11) PRIMARY KEY NOT NULL, 
+[Source] CHAR(5) NOT NULL, 
+[Dev_Type] VARCHAR(20) NOT NULL, 
+[Dev_ID] VARCHAR(5) NOT NULL, 
+[Spec_Num] VARCHAR(10) NOT NULL, 
+[Coll_Date] DATE(10) NOT NULL, 
+[Coll_Time] TIME(8) NOT NULL, 
+[Phy_ID] VARCHAR(6) NOT NULL REFERENCES [Physician]([PhysicianID]), 
+[Pat_ID] VARCHAR(6) NOT NULL REFERENCES [Patient]([PatientID]));
+
+-- Insert values into Laboratory Table.
+
+INSERT INTO Laboratory 
+(Lab_ID, Source, Dev_Type, Dev_ID, Spec_Num, Coll_Date, Coll_Time, Phy_ID, Pat_ID) 
+VALUES 
+("L1234567899", "Nasal", "Swab", "ZZ200", "S100556699", "2020-05-24", "09:30:00", "A10001", "100101");
+
+INSERT INTO Laboratory 
+(Lab_ID, Source, Dev_Type, Dev_ID, Spec_Num, Coll_Date, Coll_Time, Phy_ID, Pat_ID) 
+VALUES 
+("L1234567888", "Blood", "Serum", "BB200", "S100579453", "2020-06-07", "13:30:00", "A10001", "100101");
+
+INSERT INTO Laboratory 
+(Lab_ID, Source, Dev_Type, Dev_ID, Spec_Num, Coll_Date, Coll_Time, Phy_ID, Pat_ID) 
+VALUES 
+("L1234566788", "Nasal", "Swab", "ZZ201", "S100339453", "2020-06-10", "15:00:00", "A10002", "100102");
+
+INSERT INTO Laboratory 
+(Lab_ID, Source, Dev_Type, Dev_ID, Spec_Num, Coll_Date, Coll_Time, Phy_ID, Pat_ID) 
+VALUES 
+("L1288566788", "Nasal", "Swab", "ZZ202", "S100689453", "2020-06-10", "15:15:00", "A10001", "100103");
+
+INSERT INTO Laboratory 
+(Lab_ID, Source, Dev_Type, Dev_ID, Spec_Num, Coll_Date, Coll_Time, Phy_ID, Pat_ID) 
+VALUES 
+("L1288236788", "Blood", "Serum", "BB201", "S100119453", "2020-06-24", "10:15:00", "A10001", "100103");
+
+INSERT INTO Laboratory 
+(Lab_ID, Source, Dev_Type, Dev_ID, Spec_Num, Coll_Date, Coll_Time, Phy_ID, Pat_ID) 
+VALUES 
+("L1288236711", "Nasal", "Swab", "ZZ203", "S122119453", "2020-05-14", "12:50:00", "A10002", "100104");
+
+INSERT INTO Laboratory 
+(Lab_ID, Source, Dev_Type, Dev_ID, Spec_Num, Coll_Date, Coll_Time, Phy_ID, Pat_ID) 
+VALUES 
+("L1281536711", "Blood", "Serum", "BB202", "S122569453", "2020-05-30", "09:00:00", "A10002", "100104");
+
+INSERT INTO Laboratory 
+(Lab_ID, Source, Dev_Type, Dev_ID, Spec_Num, Coll_Date, Coll_Time, Phy_ID, Pat_ID) 
+VALUES 
+("L1277536711", "Nasal", "Swab", "ZZ204", "S182569653", "2020-07-09", "08:50:00", "A10002", "100105");
+
+INSERT INTO Laboratory 
+(Lab_ID, Source, Dev_Type, Dev_ID, Spec_Num, Coll_Date, Coll_Time, Phy_ID, Pat_ID) 
+VALUES 
+("L1267526811", "Blood", "Serum", "BB203", "S182524653", "2020-07-24", "09:30:00", "A10001", "100105");
+
