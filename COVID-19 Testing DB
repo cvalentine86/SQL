@@ -185,3 +185,63 @@ INSERT INTO Laboratory
 VALUES 
 ("L1267526811", "Blood", "Serum", "BB203", "S182524653", "2020-07-24", "09:30:00", "A10001", "100105");
 
+-- Create Table for lab reports.
+
+CREATE TABLE [LabReport]
+([Rpt_ID] VARCHAR(10) PRIMARY KEY NOT NULL, 
+[Phy_ID] VARCHAR(6) NOT NULL REFERENCES 
+[Physician]([PhysicianID]), 
+[Lab_ID] VARCHAR(11) NOT NULL REFERENCES [Laboratory]([LabID]), 
+[Test] VARCHAR(15) NOT NULL, 
+[Results] char(10) NOT NULL, 
+[Rpt_Date] DATE(10) NOT NULL, 
+[Rpt_Time] TIME(8) NOT NULL, 
+[Fac_Clia_Num] VARCHAR(8) NOT NULL, 
+[Fac_Zip] INT(5) NOT NULL);
+
+-- Insert valyes into Reports table.
+
+INSERT INTO LabReport 
+(Rpt_ID, Phy_ID, Lab_ID, Test, Results, Rpt_Date, Rpt_Time, Fac_Clia_Num, Fac_Zip) 
+VALUES 
+("R123568987", "A10001", "L1234567899", "SarsCov2 PCR", "POS", "2020-05-27", "17:50:00", "CL889922", "85042");
+
+INSERT INTO LabReport 
+(Rpt_ID, Phy_ID, Lab_ID, Test, Results, Rpt_Date, Rpt_Time, Fac_Clia_Num, Fac_Zip) 
+VALUES 
+("R123568988", "A10001", "L1234567888", "SarsCov2 AB", "POS", "2020-06-10", "08:50:00", "CL889922", "85042");
+
+INSERT INTO LabReport 
+(Rpt_ID, Phy_ID, Lab_ID, Test, Results, Rpt_Date, Rpt_Time, Fac_Clia_Num, Fac_Zip) 
+VALUES 
+("R127868988", "A10002", "L1234566788", "SarsCov2 PCR", "NEG", "2020-06-13", "03:00:00", "CL889922", "85042");
+
+INSERT INTO LabReport 
+(Rpt_ID, Phy_ID, Lab_ID, Test, Results, Rpt_Date, Rpt_Time, Fac_Clia_Num, Fac_Zip) 
+VALUES 
+("R199868988", "A10001", "L1288566788", "SarsCov2 PCR", "UNKNOWN", "2020-06-13", "19:00:00", "CL889922", "85042");
+
+INSERT INTO LabReport 
+(Rpt_ID, Phy_ID, Lab_ID, Test, Results, Rpt_Date, Rpt_Time, Fac_Clia_Num, Fac_Zip) 
+VALUES 
+("R179868988", "A10001", "L1288236788", "SarsCov2 AB", "NEG", "2020-06-27", "01:00:00", "CL889922", "85042");
+
+INSERT INTO LabReport 
+(Rpt_ID, Phy_ID, Lab_ID, Test, Results, Rpt_Date, Rpt_Time, Fac_Clia_Num, Fac_Zip) 
+VALUES 
+("R179118988", "A10002", "L1288236711", "SarsCov2 PCR", "POS", "2020-05-17", "11:27:00", "CL889922", "85042");
+
+INSERT INTO LabReport 
+(Rpt_ID, Phy_ID, Lab_ID, Test, Results, Rpt_Date, Rpt_Time, Fac_Clia_Num, Fac_Zip) 
+VALUES 
+("R179118338", "A10002", "L1281536711", "SarsCov2 AB", "POS", "2020-06-02", "11:27:00", "CL889922", "85042");
+
+INSERT INTO LabReport 
+(Rpt_ID, Phy_ID, Lab_ID, Test, Results, Rpt_Date, Rpt_Time, Fac_Clia_Num, Fac_Zip) 
+VALUES 
+("R170058338", "A10002", "L1277536711", "SarsCov2 PCR", "UNKNOWN", "2020-07-09", "14:35:00", "CL889922", "85042");
+
+INSERT INTO LabReport 
+(Rpt_ID, Phy_ID, Lab_ID, Test, Results, Rpt_Date, Rpt_Time, Fac_Clia_Num, Fac_Zip) 
+VALUES 
+("R170058548", "A10001", "L1267526811", "SarsCov2 AB", "POS", "2020-07-27", "16:45:00", "CL889922", "85042");
