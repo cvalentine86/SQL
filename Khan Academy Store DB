@@ -1,0 +1,24 @@
+--Create your own store database
+
+CREATE TABLE Merch (ID integer primary key , name text, quantity integer, price integer);
+
+INSERT INTO Merch
+Values
+(1, "T-Shirt", 5, 10),
+(2, "Pants", 2, 8),
+(3, "Hats", 10, 5),
+(4, "Shoes", 2, 20);
+
+--display the DB ordered by price.
+
+SELECT*from Merch
+order by price desc;
+
+--what is the avg price of items?
+
+SELECT Avg(price) "Avg Merch Price"
+from Merch; 
+
+--what are the cheapest items?
+
+SELECT name, price from Merch order by price asc;
