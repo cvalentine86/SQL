@@ -1,0 +1,57 @@
+//This is my own work.
+/* Create table about the people and what they do here */
+
+CREATE TABLE Celebrities (ID INTEGER PRIMARY KEY autoincrement, Name TEXT, Age INTEGER, Gender TEXT);
+
+Insert into Celebrities (Name, Age, Gender) values ('Adam Sandler', 50, 'M');
+Insert into Celebrities (Name, Age, Gender) values ('Angelina Jolie', 45, 'F');
+Insert into Celebrities (Name, Age, Gender) values ('Gerard Butler', 55, 'M');
+Insert into Celebrities (Name, Age, Gender) values ('Dwayne Johnson', 51, 'M');
+Insert into Celebrities (Name, Age, Gender) values ('Kate Beckinsale', NULL, 'F');
+
+CREATE TABLE Hobbies (ID INTEGER PRIMARY KEY AUTOINCREMENT , Celeb_ID INTEGER, Activity TEXT);
+
+INSERT into Hobbies (Celeb_ID, Activity) VALUES (1, "Bird Watching & Bike Riding");
+INSERT into Hobbies (Celeb_ID, Activity) VALUES (2, "Watching TV & Aerobics");
+INSERT into Hobbies (Celeb_ID, Activity) VALUES (3, "Sailing & Hang-gliding");
+INSERT into Hobbies (Celeb_ID, Activity) VALUES (4, "Weight Training & Eating");
+INSERT into Hobbies (Celeb_ID, Activity) VALUES (5, "Hiking & Tae Kwon Do");
+
+CREATE TABLE Vehicles (ID INTEGER PRIMARY KEY AUTOINCREMENT, Car_ID INTEGER, Make TEXT, Year INTEGER);
+
+INSERT into Vehicles (Car_ID, Make, Year) VALUES (1, "Ferrari", 2011);
+INSERT into Vehicles (Car_ID, Make, Year) VALUES (2, "Lamborghini", 2018);
+INSERT into Vehicles (Car_ID, Make, Year) VALUES (4, "Maserati", 1990);
+INSERT into Vehicles (Car_ID, Make, Year) VALUES (5, NULL, NULL);
+
+/*Show a query that includes celebrity name, age, gender, and favorite hobbies*/
+
+SELECT c.name, c.age, h.activity from celebrities c join hobbies h on c.id=h.celeb_id;
+
+/*Show a query that shows the celebirties name, age, and make of vehicle*/
+
+SELECT c.name, c.age, c.gender, v.make from celebrities c join vehicles v on c.id=v.car_id;
+
+/*Render a query that shows the age, and gender of each car owener*/
+
+SELECT c.age, c.gender, v.make, v.year from celebrities c left join vehicles v on c.id=v.car_id;
+
+/*Combine all tables together to create one list that can be used to fill in their wikipedia page.*/
+
+SELECT c.name, c.age, c.gender, h.activity, v.make, v.year from celebrities c left outer join hobbies h on c.id=h.celeb_id left outer join vehicles v on c.id=v.car_id;
+
+/*what is adam sandler and gerard butlers hobbies and car?*/
+
+SELECT c.name, h.activity, v.make from celebrities c join hobbies h on c.id=h.celeb_id join vehicles v on c.id=v.car_id where c.name = "Adam Sandler" or c.name = "Gerard Butler";
+
+/*What are angelina jolies age and gender,and what car and year does she drive?*/
+
+SELECT c.name, c.age, c.gender, v.make, v.year from celebrities c left outer join vehicles v on c.id=v.car_id where name = "Angelina Jolie";
+
+/*Who drives the 1990 Maserati?*/
+
+SELECT c.name, v.make, v.year from celebrities c join vehicles v on c.id=v.car_id where make = "Maserati";
+
+/*or*/
+
+SELECT c.name , v.make, v.year from celebrities c join vehicles v on c.id=v.car_id where year = 1990;
