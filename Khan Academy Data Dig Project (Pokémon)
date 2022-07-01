@@ -1,0 +1,37 @@
+**Queries written by me so reflect data on a pre-made table (https://gist.github.com/pamelafox/26b9357c6120d3d0d27c2b90c950e8c6.js) through Khan Academy**
+**Queries are all my work**
+
+/*Write a Query to define the average sp_atk and average sp_def of pokemon with fairy typing*/
+
+SELECT AVG(Sp_Atk), AVG(Sp_Def) from pokemon where type_1 = 'Fairy' or type_2 = 'Fairy';
+
+/*Find the maximum HP from all pokemon in generation 1*/
+
+SELECT MAX(HP), name from pokemon where generation = 1;
+
+/*Find the minimum HP, Defense, and name from genration 1 with a Dark typing.*/
+
+SELECT MIN(HP), MIN(Defense), name from pokemon where generation = 1 and type_1 = 'dark' or type_2 = 'Dark';
+
+/*Find the pokemon with the maximum speed, include thier name and generation*/
+
+SELECT MAX(Speed), name, generation from pokemon;
+
+/*Make a list of top tier pokemon with hp above 150, speed above 150, and sp_atk above 100. Use CASE and order ASC*/
+
+SELECT name, generation, legendary, case
+when HP > 150 then 'Top Tier'
+when Speed > 150 then 'Top Tier'
+when Sp_atk >100 then 'Top Tier' 
+ELSE 'Not Good' end as 'Best Pokemon' from pokemon order by 'Best Pokemon' ASC;
+
+/*Compile a list of the best legendary pokemon to have on your team.*/
+
+SELECT Name, Generation, Legendary, case
+when Legendary = 'True' then 'Best Pokemon'
+when Legendary = 'False' then 'Dont Bother'
+end as 'Deadliest Pokemon' from pokemon order by legendary ASC;
+
+/*Find pokemon who have high hp, defense, and speed and low sp_atk. Include name, generation, and type(s)*/
+
+SELECT Name, Generation, Type_1, Type_2 from pokemon where HP > 120 and defense > 50 and Speed  >= 80 and Sp_Atk <= 100;
