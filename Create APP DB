@@ -1,0 +1,56 @@
+** This project was meant to create a DB for an app that people would use to track data. I choose an activity app with exercise data and user data with two tables.**
+
+#1. CREATE a table(s) to house user data.
+
+CREATE TABLE Users (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, User_Name TEXT, Email TEXT);
+
+CREATE TABLE Activity (ID INTEGER PRIMARY KEY AUTOINCREMENT, Activity_Type TEXT, Duration_Minutes NUMERIC , Date INTEGER);
+
+#2. INSERT rows of data into the table.
+
+INSERT INTO Users (Name, User_Name, Email) VALUES  ('Bob Ross', 'PainterRoss99', 'bross@painting.com');
+INSERT INTO Users (Name, User_Name , Email) VALUES ('Anna Farris', 'SpookyCindy66', 'afarris@scarymovie.com');
+INSERT INTO Users (Name, User_Name , Email) VALUES ('Buffy Summers', 'VampSlayer16', 'bsummers@sunnyydale.com');
+INSERT INTO Users (Name , User_Name , Email) VALUES ('Thor Odinson', 'ThunderGod1', 'todinson@asgard.com');
+
+INSERT INTO Activity (Activity_Type, Duration_Minutes, Date) VALUES ('Wrist stretching', 10, 5/25/2022);
+INSERT INTO Activity (Activity_Type, Duration_Minutes, Date) VALUES ('Run from killer', 15, 5/30/2022);
+INSERT INTO Activity (Activity_Type, Duration_Minutes, Date) VALUES ('Stake Aerobics', 45, 5/31/2022);
+INSERT INTO Activity (Activity_Type, Duration_Minutes, Date) VALUES ('Throwing thunderbolts', 60, 6/1/2022);
+
+#3. Write a query to show all columns and rows in the table.
+
+SELECT * from Users;
+
+#4. UPDATE several entries in the table 
+
+UPDATE Users SET Name = 'Bob Ross the Best Painter in the World' where id = 1;
+UPDATE Users SET Name = 'Cindy the Screaming Girl' where id = 2;
+UPDATE Users SET Name = 'Buffy the Vamp Slayer Goddess' where id = 3;
+UPDATE Users SET Name = 'The Buff, Handsome, Thunder God' where id = 4;
+
+#5. Reselect the table to show updated information.
+
+SELECT * from Users;
+
+#6. DELETE data from the table.
+
+DELETE from Activity where ID = 1;
+
+#7. Reselect the table to show update.
+
+SELECT * from Activity;
+
+#8. ALTER the table to ass a new column.
+
+ALTER TABLE Activity ADD Mood TEXT;
+
+#9. UPDATE each entries 'Mood' column.
+
+UPDATE Activity SET Mood = 'Scared' where id = 2;
+UPDATE Activity SET Mood = 'Pumped' where id = 3;
+UPDATE Activity SET Mood = 'Stronger then EVER!' where id = 4;
+
+#10. Reselect the table to confirm updates.
+
+SELECT * from Activity;
