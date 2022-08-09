@@ -1,0 +1,102 @@
+-- Create table to import data into SQLite studio.
+
+CREATE TABLE SpotifyData (
+    ID               INTEGER        PRIMARY KEY,
+    artist_name      VARCHAR        NOT NULL,
+    track_name       VARCHAR        NOT NULL,
+    track_id         VARCHAR        NOT NULL,
+    popularity       INTEGER        NOT NULL,
+    danceability     DECIMAL (4, 3) NOT NULL,
+    energy           DECIMAL (4, 3) NOT NULL,
+    [key]            INTEGER        NOT NULL,
+    loudness         DECIMAL (5, 3) NOT NULL,
+    mode             INTEGER        NOT NULL,
+    speechiness      DECIMAL (5, 4) NOT NULL,
+    acousticness     DECIMAL (6, 5) NOT NULL,
+    instrumentalness TEXT           NOT NULL,
+    liveness         DECIMAL (5, 4) NOT NULL,
+    valence          DECIMAL (4, 3) NOT NULL,
+    tempo            DECIMAL (6, 3) NOT NULL,
+    duration_ms      INTEGER        NOT NULL,
+    time_signature   INTEGER        NOT NULL
+);
+
+*Import .csv file for spotify data from Kaggle.*
+
+-- Explore the new table you created with a SQL query.
+
+SELECT *
+FROM SpotifyData;
+
+--Decipher the average popularity and danceability of the songs by artist Olivia Rodrigo.
+
+SELECT artist_name, AVG(popularity) AS Avg_Popularity, AVG(danceability) AS Avg_Danceability
+FROM SpotifyData 
+WHERE artist_name = 'Olivia Rodrigo'
+GROUP BY artist_name
+
+-- How many songs does the artist Doja Cat have listed on the table? What is the average popularity and
+tempo of their songs?
+
+SELECT ID, track_name, COUNT(artist_name) AS Num_of_songs, AVG(popularity) AS Avg_popularity, AVG(tempo) AS Avg_tempo
+FROM Spotifydata
+WHERE artist_name LIKE '%cat%'
+GROUP BY ID
+ORDER BY Avg_popularity DESC
+
+-- Which top 10 artists have the highest average dancability within the table?
+
+SELECT artist_name, AVG(danceability)
+FROM SpotifyData
+GROUP BY artist_name
+ORDER BY AVG(danceability) DESC
+LIMIT 10;
+
+-- What is the longest song listed that has the highest energy in table and who is the artist?
+
+SELECT artist_name, track_name, AVG(energy), COUNT(duration_ms)
+FROM SpotifyData
+GROUP BY artist_name
+ORDER BY COUNT(duration_ms) DESC;
+
+-- Which of Olivia Rodrigos songs is the longest and least popular?
+
+SELECT artist_name, track_name, MAX(duration_ms) AS Max_duration, MIN(popularity) AS Least_popular
+FROM SpotifyData
+WHERE artist_name = 'Olivia Rodrigo'
+GROUP BY artist_name
+ORDER BY Max_duration, Least_popular;
+
+--Which song by Ariana Grande is the most popular  and has the shortest duration?
+
+SELECT artist_name, track_name, MIN(duration_ms) AS Shortest_song, MAX(popularity) AS Most_popular_song
+FROM SpotifyData
+WHERE artist_name = 'Ariana Grande';
+
+-- Which are the top 5 artists with the highest tempo songs?
+
+SELECT artist_name, track_name, MAX(tempo)
+FROM SpotifyData
+GROUP BY artist_name
+ORDER BY MAX(tempo) DESC
+LIMIT 5;
+
+-- Which artist has the highest key track in the table?
+
+SELECT artist_name, track_name, MAX(key)
+FROM SpotifyData
+LIMIT 1;
+
+-- Create a CASE statement for popularity of songs where > 90 is most popular, > 80 is mediocre and anything else is not popular.
+
+SELECT artist_name AS Artist, track_name AS Song,
+CASE
+WHEN popularity > 90 THEN 'Most Popular'
+WHEN popularity >80 THEN 'Mediocre'
+ELSE 'Not Popular'
+END AS Popularity_Scale
+FROM SpotifyData
+GROUP by artist_name
+ORDER BY popularity DESC;
+
+
